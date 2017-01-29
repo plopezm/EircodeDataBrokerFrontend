@@ -31,17 +31,27 @@ angular.module('eircodeDataBrokerFrontendApp')
       if($scope.typeRequest === TYPE_REQUEST_IRELAND_ADDRESS){
         IrelandAddressService.findEircode($scope.apiKey, $scope.eircodeTyped)
           .then(function success(response) {
-            $scope.eircodesList.push(response.data);
+            $scope.eircodesList = $scope.eircodesList.concat(response.data);
+            //$scope.eircodesList.push(response.data);
           }, function error(err) {
-            $scope.errors = "HTTP code: "+err.status + " -> "+err.data.error;
+            if(!err.data){
+              $scope.errors = "Server not found";
+            }else{
+              $scope.errors = "HTTP code: "+err.status + " -> "+err.data.error;
+            }
           });
 
       }else if($scope.typeRequest === TYPE_REQUEST_IRELAND_ADDRESS_WITH_COORDS){
         IrelandAddressService.findEircodeWithCoords($scope.apiKey, $scope.eircodeTyped)
           .then(function success(response) {
-            $scope.eircodesList.push(response.data);
+            $scope.eircodesList = $scope.eircodesList.concat(response.data);
+            //$scope.eircodesList.push(response.data);
           }, function error(err) {
-            $scope.errors = "HTTP code: "+err.status + " -> "+err.data.error;
+            if(!err.data){
+              $scope.errors = "Server not found";
+            }else {
+              $scope.errors = "HTTP code: " + err.status + " -> " + err.data.error;
+            }
           });
       }
     };
