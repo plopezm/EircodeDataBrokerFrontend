@@ -1,0 +1,60 @@
+<div>
+  <h1>{{typeRequest}} finder</h1>
+
+  <div class="form-group">
+    <label for="reqSel">Select request type:</label>
+    <select class="form-control" id="reqSel" ng-model="typeRequest" ng-options="rt for rt in requestTypes">
+    </select>
+  </div>
+
+  <hr/>
+
+  <div class="form-group">
+    <label for="IAapiKeyid">Write your API_KEY:</label>
+    <input id="IAapiKeyid" type="text" class="form-control" ng-model="apiKey"  placeholder="Put your API_KEY">
+  </div>
+  <div class="form-group">
+    <label for="IAPostCode">Write the desired Eircode:</label>
+    <input id="IAPostCode" type="text" class="form-control" ng-model="eircodeTyped" placeholder="Write an eircode">
+  </div>
+  <div class="form-group">
+    <input type="button" class="btn btn-success" value="Find" ng-click="searchIrelandAddress()">
+  </div>
+
+  <div class="alert alert-danger" ng-if="errors">
+    {{errors}}
+  </div>
+
+  <hr/>
+  <h3>Recently searched</h3>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+          <tr>
+            <th>Postcode</th>
+            <th>Addressline</th>
+            <th>County</th>
+            <th>Organization</th>
+            <th>Posttown</th>
+            <th>Street</th>
+            <th>Summaryline</th>
+            <th ng-if="typeRequest == requestTypes[1]">Latitude</th>
+            <th ng-if="typeRequest == requestTypes[1]">Longitude</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr ng-repeat="eircodeObj in eircodesList track by $index">
+            <td>{{eircodeObj.postcode}}</td>
+            <td>{{eircodeObj.addressline1}} {{eircodeObj.addressline2}}</td>
+            <td>{{eircodeObj.county}}</td>
+            <td>{{eircodeObj.organization}}</td>
+            <td>{{eircodeObj.posttown}}</td>
+            <td>{{eircodeObj.street}}</td>
+            <td>{{eircodeObj.summaryline}}</td>
+            <td ng-if="typeRequest == requestTypes[1]">{{eircodeObj.latitude}}</td>
+            <td ng-if="typeRequest == requestTypes[1]">{{eircodeObj.longitude}}</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
